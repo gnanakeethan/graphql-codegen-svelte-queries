@@ -9,12 +9,5 @@ export const getUrqlImports = (config: SvelteQueriesPluginConfig, spec: IOperati
             ...(spec.hasQ ? ['AnyVariables', 'QueryArgs', 'OperationResultState'] : []),
             ...(spec.hasS ? ['SubscriptionArgs'] : []),
         ].map(z => (config.useTypeImports ? 'type ' : '') + z),
-    ].join(', ')} } from '@urql/svelte'` + `\n`+
-    `import ${config.useTypeImports ? 'type ' : ''} { ${[
-        ...[
-            ...(spec.hasQ ? ['AnyVariables', 'QueryArgs', 'OperationResultState'] : []),
-            ...(spec.hasS ? ['SubscriptionArgs'] : []),
-        ],
-    ].join(', ')} } from '@urql/svelte'`,
-
+    ].join(', ')} } from '@urql/svelte'`
 ]
