@@ -1,13 +1,20 @@
-import type { IOperationSpec, SvelteQueriesPluginConfig } from '../config'
+import type {IOperationSpec, SvelteQueriesPluginConfig} from '../config'
 
 export const getUrqlImports = (config: SvelteQueriesPluginConfig, spec: IOperationSpec) => [
-  `import { ${[
-    'gql', // Re-exported
-    ...(spec.hasQ ? ['queryStore'] : []),
-    ...(spec.hasS ? ['subscriptionStore'] : []),
-    ...[
-      ...(spec.hasQ ? ['AnyVariables', 'QueryArgs', 'OperationResultState'] : []),
-      ...(spec.hasS ? ['SubscriptionArgs'] : []),
-    ].map(z => (config.useTypeImports ? 'type ' : '') + z),
-  ].join(', ')} } from '@urql/svelte'`,
+    `import { ${[
+        'gql', // Re-exported
+        ...(spec.hasQ ? ['queryStore'] : []),
+        ...(spec.hasS ? ['subscriptionStore'] : []),
+        ...[
+            ...(spec.hasQ ? ['AnyVariables', 'QueryArgs', 'OperationResultState'] : []),
+            ...(spec.hasS ? ['SubscriptionArgs'] : []),
+        ].map(z => (config.useTypeImports ? 'type ' : '') + z),
+    ].join(', ')} } from '@urql/svelte'`,
+    `import ${config.useTypeImports ? 'type ' : ''} { ${[
+        ...[
+            ...(spec.hasQ ? ['AnyVariables', 'QueryArgs', 'OperationResultState'] : []),
+            ...(spec.hasS ? ['SubscriptionArgs'] : []),
+        ],
+    ].join(', ')} } from '@urql/svelte'`,
+
 ]
